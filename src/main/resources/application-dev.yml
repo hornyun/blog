@@ -1,0 +1,24 @@
+server:
+  port: 8066
+
+#datasource config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/blog_hornyun?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: 123456
+      max-active: 20
+      initial-size: 5
+      min-idle: 5
+      min-evictable-idle-time-millis: 300000
+      max-wait: 60000
+      validation-query: select 1
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+
+
+
