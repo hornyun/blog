@@ -8,4 +8,4 @@
 * [选定前端模版](https://gitee.com/aqian666/blog?_from=gitee_search#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D)
 
 ### 2023-05-19
-*
+* 完成blog-page的vue-router搭建，引入element-plus
