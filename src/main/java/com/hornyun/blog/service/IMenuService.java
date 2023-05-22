@@ -1,6 +1,6 @@
 package com.hornyun.blog.service;
 
-import com.hornyun.blog.entity.User;
+import com.hornyun.blog.entity.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *  服务类
  * </p>
  *
- * @author hornyun
- * @since 2023-05-15
+ * @author HornYun
+ * @since 2023-05-21
  */
-public interface IUserService extends IService<User> {
+public interface IMenuService extends IService<Menu> {
 
 }

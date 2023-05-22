@@ -14,10 +14,11 @@ import java.util.Collections;
 public class MybatisPlusCodeGenerator {
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir");
-        String tableName = "t_user";
-        String author = "hornyun";
+        String tableName = "t_blog_menu";
+        String author = "HornYun";
+        String url = "jdbc:mysql://127.0.0.1:3306/blog_dev?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 
-        FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3306/blog_hornyun?useUnicode=true&characterEncoding=utf-8&useSSL=false", "root", "123456")
+        FastAutoGenerator.create(url, "root", "123456")
                 .globalConfig(builder -> {
                     builder.author(author) // 设置作者
                             .enableSwagger() // 开启 swagger 模式
@@ -40,7 +41,7 @@ public class MybatisPlusCodeGenerator {
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude(tableName) // 设置需要生成的表名
-                            .addTablePrefix("t_", "c_"); // 设置过滤表前缀
+                            .addTablePrefix("t_blog", "c_"); // 设置过滤表前缀
                 })
                 .execute();
 

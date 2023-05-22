@@ -8,11 +8,11 @@ import org.springframework.stereotype.Controller;
  *  前端控制器
  * </p>
  *
- * @author hornyun
- * @since 2023-05-15
+ * @author HornYun
+ * @since 2023-05-21
  */
 @Controller
-@RequestMapping("/blog/user")
-public class UserController {
+@RequestMapping("/blog/menu")
+public class MenuController {
 
 }

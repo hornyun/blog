@@ -1,6 +1,6 @@
 package com.hornyun.blog.mapper;
 
-import com.hornyun.blog.entity.User;
+import com.hornyun.blog.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  *  Mapper 接口
  * </p>
  *
- * @author hornyun
- * @since 2023-05-15
+ * @author HornYun
+ * @since 2023-05-21
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface MenuMapper extends BaseMapper<Menu> {
 
 }
