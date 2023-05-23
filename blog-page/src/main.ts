@@ -7,8 +7,10 @@ import 'element-plus/dist/index.css'
 
 
 // v-md-editor
+// @ts-ignore
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
 import '@kangc/v-md-editor/lib/style/preview.css';
+// @ts-ignore
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
 // highlightjs of v-md-editor
@@ -17,6 +19,10 @@ VMdPreview.use(githubTheme, {
     Hljs: hljs,
 });
 
+// markDown插件
+// @ts-ignore
+import Markdown from 'vue3-markdown-it';
+import 'highlight.js/styles/monokai.css';
 
 
 const app = createApp(App);
@@ -24,6 +30,7 @@ app.use(ElementPlus);
 app.use(createPinia());
 app.use(router);
 app.use(VMdPreview);
+app.use(Markdown);
 
 app.mount('#app');
 app.component('');

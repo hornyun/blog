@@ -29,8 +29,10 @@
         </el-container>
         <el-footer>
             FOOTER
-            <router-link to="/article/first">to MarkDown</router-link>
-            <router-view></router-view>
+            <v-md-preview :text="text"></v-md-preview>
+            <div>
+                <Markdown source="../../../assets/article.md" />
+            </div>
         </el-footer>
     </el-container>
 </template>
@@ -39,11 +41,13 @@
 import getMenus from '@/api/menu.api.js';
 import getContents from '@/api/content.api.js';
 import {onMounted, reactive, ref, computed} from "vue";
+import Markdown from 'vue3-markdown-it';
 
 let currentPage = ref('1');
 let menus = ref(getMenus());
 let contentList = reactive({});
-
+const text = "# 这是一个一级表头";
+const source = "@/assets/article.md"
 onMounted(() => {
     Object.assign(contentList, getContents(currentPage));
 })

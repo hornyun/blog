@@ -9,3 +9,13 @@
 
 ### 2023-05-19
 * 完成blog-page的vue-router搭建，引入element-plus
+
+### 2023-05-21
+* delete useless user entity dao service controller...
+* add v-md-editor on blog-page
+* set basic router of blog-page
+
+
+### 2023-05-23
+* complete article design
+* first todo  to add 后台管理 and design user security system

@@ -1,4 +1,4 @@
-package com.hornyun.blog;
+package com.hornyun.blog.util;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
@@ -12,6 +12,7 @@ import java.util.Collections;
  * created on 2023 05 14
  */
 public class MybatisPlusCodeGenerator {
+
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir");
         String tableName = "t_blog_menu";
