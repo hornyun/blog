@@ -13,3 +13,5 @@
 * [springboot下使用druid-spring-boot-starter](https://blog.csdn.net/yzh_1346983557/article/details/117673280)
 * [阿前666/答案博客](https://gitee.com/aqian666/blog)
 * [v-md-editor](https://code-farmer-i.github.io/vue-markdown-editor/examples/preview-demo.html#usage)
+* [shiro-structure](https://shiro.apache.org/architecture.html)
+
