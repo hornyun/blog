@@ -19,3 +19,7 @@
 ### 2023-05-23
 * complete article design
 * first todo  to add 后台管理 and design user security system
+
+### 2023-05-26
+* add security control by shiro
+* add login method and test method

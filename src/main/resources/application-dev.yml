@@ -23,6 +23,7 @@ spring:
     host: localhost
     port: 6379
     client-name: jedis
+    database: 0
     jedis:
       pool:
         max-active: 6
