@@ -1,5 +1,6 @@
 package com.hornyun.blog.service;
 
+import com.hornyun.blog.dto.BlogResponse;
 import com.hornyun.blog.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -17,5 +18,12 @@ public interface IUserService extends IService<User> {
      * @param username user name
      * @return user
      */
-    User login(String username);
+    User queryByUsername(String username);
+
+    /**
+     * register a user
+     * @param user user
+     * @return result
+     */
+    BlogResponse<User> register(User user);
 }

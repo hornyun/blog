@@ -11,14 +11,14 @@ import javax.annotation.Resource;
 @SpringBootTest
 @Slf4j
 class RedisConfigTest {
-    @Resource
+    @Resource(name = "redisTemplate1")
     RedisTemplate<String, Object> redisTemplate;
     @Resource
     private IUserService userService;
 
     @Test
     void testGet() {
-        redisTemplate.opsForValue().set("hornyun", userService.login("hornyun"));
+        redisTemplate.opsForValue().set("hornyun", userService.queryByUsername("hornyun"));
         Object o = redisTemplate.opsForValue().get("hornyun");
         log.info("get key=hornyun1 value is {}", o);
     }
