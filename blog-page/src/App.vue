@@ -9,6 +9,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 @import "@/assets/css/index.css";
+#app{
+    width: 100%;
+    height: 100%;
+}
 </style>

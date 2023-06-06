@@ -1,4 +1,9 @@
 import {createRouter, createWebHashHistory} from 'vue-router';
+import userStore from "@/stores/module/user";
+
+// @ts-ignore
+import nProgress from 'nprogress'; // progress bar
+nProgress.configure({showSpinner: false});
 
 
 const routes = [
@@ -14,7 +19,12 @@ const routes = [
     {
         path:"/login",
         name:'login',
-        component: () => import('@/views/common/login.vue'),
+        component: () => import('@/views/blog/login.vue'),
+    },
+    {
+        path:"/blog/test",
+        name:'login-test',
+        component: () => import('@/views/blog/test.vue'),
     }
 ]
 
@@ -23,5 +33,16 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes, // `routes: routes` 的缩写
 })
+router.beforeEach((to)=>{
+    nProgress.start();
 
+    if (to.path.startsWith("/blog")) {
+        if (!userStore().userInfo) {
+            nProgress.done();
+            return '/login';
+        }
+    }else{
+        nProgress.done();
+    }
+})
 export default router;

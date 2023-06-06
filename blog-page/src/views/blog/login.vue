@@ -54,14 +54,19 @@
 </style>
 <script setup>
 import {reactive} from "vue";
+import router from "@/router";
+
 
 const form = reactive({
     username: '',
     password: '',
 })
 
-const onSubmit = () => {
-    console.log('submit!')
+const onSubmit = async () => {
+    console.log('submit!', form);
+    const res = await $api.userApi.login(form);
+    console.log("res is ", res);
+    // router.push({path:"/login/test"});
 }
 
 </script>

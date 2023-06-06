@@ -1,11 +1,12 @@
 -- 创建文章表
 drop table if exists t_blog_article;
+
 CREATE TABLE `t_blog_article` (
     `id` varchar(32) NOT NULL,
     `article_title` varchar(123) DEFAULT NULL COMMENT '文章标题',
     `article_cover` varchar(255) DEFAULT NULL COMMENT '文章封面',
-    `article_content` text COMMENT '文章内容',
-    `article_introduction` varchar(255) DEFAULT NULL COMMENT '文章简介',
+    `content_id` text COMMENT '文章内容id',
+    `article_introduction` varchar(512) DEFAULT NULL COMMENT '文章简介',
     `user_id` varchar(32) DEFAULT NULL COMMENT '作者id',
     `state` varchar(1) DEFAULT '0' COMMENT '文章状态 0=正常，1=废弃',
     `article_order` smallint(6) DEFAULT '0' COMMENT '文章排序',
@@ -13,7 +14,7 @@ CREATE TABLE `t_blog_article` (
     `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `idx_article_title` (`article_title`) USING BTREE COMMENT '文章标题索引'
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='博客文章表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='博客文章表';
 
 drop table if exists t_blog_article_category;
 create table `t_blog_article_category`(
@@ -28,6 +29,14 @@ create table `t_blog_article_category_map`(
     `category_id` varchar(32) comment '文章类别id'
     `article_id` varchar(32) comment '文章id'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章种类表';
+
+drop table if exists `t_blog_article_content`;
+create table `t_blog_article_content`(
+    `id` varchar(32) not null,
+    `article_id` varchar(32) not null,
+    `content` text,
+    primary key(`id) USING BTREE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章内容表';
 -- 创建用户表
 CREATE TABLE `t_blog_user` (
     `id` varchar(32) NOT NULL ,

@@ -5,7 +5,7 @@ import App from '@/App.vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-
+import global from '@/common/global';
 // v-md-editor
 // @ts-ignore
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
@@ -26,6 +26,7 @@ import 'highlight.js/styles/monokai.css';
 
 
 const app = createApp(App);
+global(app);
 app.use(ElementPlus);
 app.use(createPinia());
 app.use(router);
