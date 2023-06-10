@@ -4,10 +4,10 @@ import com.hornyun.blog.dto.BlogResponse;
 import com.hornyun.blog.entity.User;
 import com.hornyun.blog.service.impl.TokenService;
 import com.hornyun.blog.shiro.BlogToken;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -44,13 +44,12 @@ public class LoginController {
     @PostMapping("/login/token")
     @ResponseBody
     public BlogResponse<String> getToken(@RequestBody User user) {
-        Subject subject = SecurityUtils.getSubject();
-        subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
-        if (subject.isAuthenticated()) {
-            String token = tokenService.getToken((User) subject.getPrincipal());
-            subject.login(new BlogToken(token));
+        String token = tokenService.authUser(user);
+        if (StringUtils.isEmpty(token)) {
+            return BlogResponse.failureMessage("校验未通过");
+        }else{
+            SecurityUtils.getSubject().login(new BlogToken(token));
             return BlogResponse.success(token);
         }
-        return BlogResponse.failure(null);
     }
 }

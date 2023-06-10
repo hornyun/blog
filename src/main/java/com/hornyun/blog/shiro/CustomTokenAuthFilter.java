@@ -62,6 +62,7 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
         BlogResponse<String> data = BlogResponse.failure("身份校验失败");
         try {
             response.getWriter().print(JSONUtils.toJSONString(data));
+            response.getWriter().close();
         } catch (IOException e) {
             throw new BlogBaseException(e);
         }

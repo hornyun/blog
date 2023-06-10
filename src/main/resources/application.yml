@@ -13,11 +13,9 @@ mybatis-plus:
 # Logger Config
 logging:
   level:
-    root: warn
+    com.hornyun.blog.mapper: debug
   file:
     name: /Users/hornyun/IdeaProjects/blog/log/error.log
-
-
 debug: true
 server:
   servlet:

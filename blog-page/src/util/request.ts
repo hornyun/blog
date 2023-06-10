@@ -6,7 +6,7 @@ import userStore from "@/stores/module/user";
 
 // create an axios instance
 const instance = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_URL + import.meta.env.VITE_APP_BASE_API, // url = base url + request url
+    baseURL:"/"+ import.meta.env.VITE_APP_BASE_API, //
     withCredentials: true, // send cookies when cross-domain requests
     timeout: 25000 // request timeout
 });
@@ -19,6 +19,8 @@ instance.interceptors.request.use(
         if (token) {
             // 让每个请求携带自定义token 请根据实际情况自行修改
             config.headers['blog_token'] = token
+        }else{
+            console.log("unset blog_token");
         }
         return config;
     },
@@ -44,9 +46,11 @@ instance.interceptors.response.use(
                     path: '/blog/login',
                 });
             }
+            //@ts-ignore
             await $utils.messageUtils.showResponseErrorMessage(error.response.data.message);
         } else {
             if (error.code === 'ECONNABORTED') {
+                //@ts-ignore
                 $utils.messageUtils.message.error('请求连接超时，请联系管理员！');
             }
         }
