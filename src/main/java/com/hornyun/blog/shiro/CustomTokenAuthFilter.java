@@ -6,6 +6,7 @@ import com.hornyun.blog.entity.User;
 import com.hornyun.blog.exception.BlogBaseException;
 import com.hornyun.blog.service.impl.TokenService;
 import com.hornyun.blog.util.SpringContextUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -21,6 +22,7 @@ import java.io.IOException;
 /**
  * @author hornyun
  */
+@Slf4j
 public class CustomTokenAuthFilter extends FormAuthenticationFilter {
     private static final String TOKEN_NAME = "blog_token";
 
@@ -29,6 +31,7 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
         String token = getToken(httpServletRequest);
+        log.info("http request session Id is {}", ((HttpServletRequest) request).getSession().getId());
         if (StringUtils.isNoneBlank(token)) {
             return new BlogToken(token);
         } else {
@@ -39,6 +42,8 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
+        //todo which can set redis-key by sessionId
+        log.info("http request session Id is {}", ((HttpServletRequest) request).getSession().getId());
         if (((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())) {
             return true;
         }else{
@@ -60,6 +65,7 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         BlogResponse<String> data = BlogResponse.failure("身份校验失败");
+
         try {
             response.getWriter().print(JSONUtils.toJSONString(data));
             response.getWriter().close();

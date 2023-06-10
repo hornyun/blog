@@ -53,7 +53,9 @@
 }
 </style>
 <script setup>
-import { reactive } from 'vue'
+import {reactive} from 'vue'
+import router from "@/router";
+import userStore from "@/stores/module/user";
 
 const form = reactive({
   username: '',
@@ -61,9 +63,13 @@ const form = reactive({
 })
 
 const onSubmit = async () => {
-  const res = await $api.userApi.login(form)
-  console.log('res is ', res)
-  // router.push({path:"/login/test"});
+    const success = await userStore().login(form);
+    if (success) {
+        await router.push({path:"/blog/home"});
+    }else{
+        $utils.messageUtils.mainMessage.warning("验证失败");
+    }
+
 }
 
 </script>

@@ -22,6 +22,11 @@ const routes = [
         component: () => import('@/views/blog/login.vue'),
     },
     {
+        path:"/blog/home",
+        name:'blog-home',
+        component: () => import('@/views/blog/home.vue'),
+    },
+    {
         path:"/blog/test",
         name:'login-test',
         component: () => import('@/views/blog/test.vue'),
@@ -35,7 +40,6 @@ const router = createRouter({
 })
 router.beforeEach((to)=>{
     nProgress.start();
-
     if (to.path.startsWith("/blog")) {
         if (!userStore().userInfo) {
             nProgress.done();

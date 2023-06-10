@@ -1,10 +1,12 @@
 package com.hornyun.blog.service.impl;
 
+import com.hornyun.blog.dto.UserDTO;
 import com.hornyun.blog.entity.User;
 import com.hornyun.blog.service.IUserService;
 import com.hornyun.blog.util.UUIDUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -44,17 +46,21 @@ public class TokenService {
 
 
 
-    public String authUser(User user) {
+    public UserDTO authUser(User user) {
         User find = userService.queryByUsername(user.getUsername());
         if (find == null) {
             return null;
         }else{
-            ByteSource credentialsSalt = ByteSource.Util.bytes(user.getSalt());
+            ByteSource credentialsSalt = ByteSource.Util.bytes(find.getSalt());
             String toCheckPassword = new SimpleHash("MD5", user.getPassword(), credentialsSalt, 1024).toHex();
             if (!toCheckPassword.equals(find.getPassword())) {
                 return null;
             }else{
-                return generateToken(find);
+                String token = generateToken(find);
+                UserDTO result = new UserDTO();
+                BeanUtils.copyProperties(find, result);
+                result.setToken(token);
+                return result;
             }
         }
     }

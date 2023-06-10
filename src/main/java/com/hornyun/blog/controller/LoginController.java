@@ -1,6 +1,7 @@
 package com.hornyun.blog.controller;
 
 import com.hornyun.blog.dto.BlogResponse;
+import com.hornyun.blog.dto.UserDTO;
 import com.hornyun.blog.entity.User;
 import com.hornyun.blog.service.impl.TokenService;
 import com.hornyun.blog.shiro.BlogToken;
@@ -43,13 +44,13 @@ public class LoginController {
 
     @PostMapping("/login/token")
     @ResponseBody
-    public BlogResponse<String> getToken(@RequestBody User user) {
-        String token = tokenService.authUser(user);
-        if (StringUtils.isEmpty(token)) {
+    public BlogResponse<UserDTO> getToken(@RequestBody User user) {
+        UserDTO userInfo = tokenService.authUser(user);
+        if (userInfo == null) {
             return BlogResponse.failureMessage("校验未通过");
-        }else{
-            SecurityUtils.getSubject().login(new BlogToken(token));
-            return BlogResponse.success(token);
+        } else {
+            SecurityUtils.getSubject().login(new BlogToken(userInfo.getToken()));
+            return BlogResponse.success(userInfo);
         }
     }
 }
