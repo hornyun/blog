@@ -8,22 +8,26 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 /**
  * @author hornyun
  */
-@Controller
+@RestController
 public class LoginController {
 
     @GetMapping("/login/test")
     @ResponseBody
     public BlogResponse<String> test() {
         return BlogResponse.success("test");
+    }
+
+    @RequestMapping("/login/failure")
+    @ResponseBody
+    public BlogResponse<String> failure() {
+        return BlogResponse.failure("没有权限");
     }
 
     @PostMapping("/login")
@@ -39,7 +43,7 @@ public class LoginController {
 
     @PostMapping("/login/token")
     @ResponseBody
-    public BlogResponse<String> getToken(User user) {
+    public BlogResponse<String> getToken(@RequestBody User user) {
         Subject subject = SecurityUtils.getSubject();
         subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
         if (subject.isAuthenticated()) {

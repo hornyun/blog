@@ -56,7 +56,7 @@ public class ShiroConfig {
         //用于设置一个登录的请求地址，这个地址可以是一个html或jsp的访问路径，也可以是一个控制器的路径
         //作用是用于通知Shiro我们可以使用这里路径转向到登录页面，但Shiro判断到我们当前的用户没有登录时就会自动转换到这个路径
         //要求用户完成成功
-        //shiroFilter.setLoginUrl("/login");
+        shiroFilter.setLoginUrl("/login/failure");
         //登录成功后转向页面，由于用户的登录后期需要交给Shiro完成，因此就需要通知Shiro登录成功之后返回到那个位置
         //shiroFilter.setSuccessUrl("/success");
         //用于指定没有权限的页面，当用户访问某个功能是如果Shiro判断这个用户没有对应的操作权限，那么Shiro就会将请求

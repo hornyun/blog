@@ -43,5 +43,8 @@ public final class BlogResponse<T> {
     public static <T> BlogResponse<T> failure() {
         return failure(null);
     }
+    public static <T> BlogResponse<T> failureMessage(String message) {
+        return new BlogResponse<>(FAILURE, null, message);
+    }
 
 }
