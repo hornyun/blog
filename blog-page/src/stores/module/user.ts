@@ -7,7 +7,6 @@ export const userStore = defineStore('user', {
         userInfo: null,
         role: [],
     }),
-//
     getters:{
 
     },
@@ -17,7 +16,6 @@ export const userStore = defineStore('user', {
             setToken("");
         },
         async login(form:any){
-            // @ts-ignore
             const res = await $api.userApi.login(form)
             if (res?.success) {
                 setToken(res.data?.token);
@@ -33,6 +31,15 @@ export const userStore = defineStore('user', {
                 state.userInfo = data;
             })
         },
+        async getUserInfo(){
+            const res = await $api.userApi.getUserInfo();
+            if (res?.success) {
+                this.setUserInfo(res.d());
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 });
 export default userStore;

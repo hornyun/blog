@@ -1,7 +1,11 @@
 package com.hornyun.blog.controller;
 
+import com.hornyun.blog.dto.UserDTO;
 import com.hornyun.blog.service.IUserService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 

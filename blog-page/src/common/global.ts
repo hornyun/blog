@@ -1,5 +1,4 @@
 // 公用方法
-// @ts-ignore
 
 // @ts-ignore
 export default function(app) {

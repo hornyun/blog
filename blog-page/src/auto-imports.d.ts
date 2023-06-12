@@ -5,11 +5,8 @@
 export {}
 declare global {
   const $api: typeof import('@/api')['default']
-  const $utils: typeof import('@/util')['default']
+  const $utils: typeof import('@/utils')['default']
   const EffectScope: typeof import('vue')['EffectScope']
-  const ElMessage: typeof import('element-plus')['ElMessage']
-  const MessageBox: typeof import('element-plus')['ElMessageBox']
-  const blogStore: typeof import('@/stores')['default']
   const computed: typeof import('vue')['computed']
   const createApp: typeof import('vue')['createApp']
   const customRef: typeof import('vue')['customRef']

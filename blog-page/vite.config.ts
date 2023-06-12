@@ -24,10 +24,10 @@ export default ({mode}) => {
                 imports: ['vue', 'vue-router',
                     {
                         '@/api': [['default', '$api']],
-                        '@/util': [['default', '$utils']],
+                        '@/utils': [['default', '$utils']],
                     }
                 ],
-                dts: false,
+                dts: 'src/auto-imports.d.ts',
                 resolvers: [ElementPlusResolver()],
             }),
             Components({

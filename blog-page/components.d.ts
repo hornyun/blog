@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSpace: typeof import('element-plus/es')['ElSpace']
+    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Footer: typeof import('./src/components/frame/Footer.vue')['default']
     Frame: typeof import('./src/components/frame/Frame.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

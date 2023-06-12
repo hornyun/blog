@@ -1,4 +1,4 @@
-import request from '@/util/request';
+import request from '@/utils/request';
 
 const loginApi = {
     async login(data) {

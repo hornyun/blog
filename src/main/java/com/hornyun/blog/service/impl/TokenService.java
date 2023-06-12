@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Deprecated
+ *
  * @author hornyun
  */
 @Service
@@ -43,8 +45,6 @@ public class TokenService {
 
     @Resource(name = "userServiceImpl")
     IUserService userService;
-
-
 
     public UserDTO authUser(User user) {
         User find = userService.queryByUsername(user.getUsername());

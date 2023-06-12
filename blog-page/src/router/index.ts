@@ -9,26 +9,26 @@ nProgress.configure({showSpinner: false});
 const routes = [
     {
         path: '/',
-        component: ()=>import('@/components/frame/Frame.vue'),
+        component: () => import('@/components/frame/Frame.vue'),
     },
     {
-        path:"/article/first",
-        name:'article',
+        path: "/article/first",
+        name: 'article',
         component: () => import('@/views/article/FirstArticle.vue'),
     },
     {
-        path:"/login",
-        name:'login',
+        path: "/login",
+        name: 'login',
         component: () => import('@/views/blog/login.vue'),
     },
     {
-        path:"/blog/home",
-        name:'blog-home',
+        path: "/blog/home",
+        name: 'blog-home',
         component: () => import('@/views/blog/home.vue'),
     },
     {
-        path:"/blog/test",
-        name:'login-test',
+        path: "/blog/test",
+        name: 'login-test',
         component: () => import('@/views/blog/test.vue'),
     }
 ]
@@ -38,15 +38,32 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes, // `routes: routes` 的缩写
 })
-router.beforeEach((to)=>{
+router.beforeEach(async (to) => {
     nProgress.start();
+    let store = userStore();
+
     if (to.path.startsWith("/blog")) {
-        if (!userStore().userInfo) {
-            nProgress.done();
-            return '/login';
+        console.log("store.userInfo is ", store.userInfo);
+        if (!store.userInfo) {
+            const user = await store.getUserInfo();
+            if (user) {
+                nProgress.done();
+                return true;
+            }else{
+                nProgress.done();
+                return '/login';
+            }
         }
-    }else{
+    } else if (to.path === '/login') {
+        if (store.userInfo) {
+            return '/blog/home';
+        }else{
+            const user = await store.getUserInfo();
+            return !user;
+        }
+    } else {
         nProgress.done();
+        return true;
     }
 })
 export default router;
