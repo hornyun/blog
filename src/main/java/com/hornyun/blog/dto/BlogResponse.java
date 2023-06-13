@@ -2,11 +2,13 @@ package com.hornyun.blog.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author hornyun
  */
 @Data
-public final class BlogResponse<T> {
+public final class BlogResponse<T> implements Serializable {
     private static final String FAILURE = "500";
     private static final String SUCCESS = "200";
     private static final String SUCCESS_MESSAGE = "success";

@@ -1,6 +1,7 @@
 package com.hornyun.blog.shiro;
 
 import com.alibaba.druid.support.json.JSONUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hornyun.blog.dto.BlogResponse;
 import com.hornyun.blog.entity.User;
 import com.hornyun.blog.exception.BlogBaseException;
@@ -59,6 +60,31 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
         }
     }
 
+    @Override
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        if (isLoginRequest(request, response)) {
+            if (isLoginSubmission(request, response)) {
+                if (log.isTraceEnabled()) {
+                    log.trace("Login submission detected.  Attempting to execute login.");
+                }
+                return executeLogin(request, response);
+            } else {
+                if (log.isTraceEnabled()) {
+                    log.trace("Login page view.");
+                }
+                //allow them to see the login page ;)
+                return true;
+            }
+        } else {
+            if (log.isTraceEnabled()) {
+                log.trace("Attempting to access a path which requires authentication.  Forwarding to the " +
+                        "Authentication url [" + getLoginUrl() + "]");
+            }
+
+            loginFail((HttpServletRequest) request, (HttpServletResponse) response);
+            return false;
+        }
+    }
 
     private void loginFail(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json;charset=utf8");
@@ -67,7 +93,7 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
         BlogResponse<String> data = BlogResponse.failure("身份校验失败");
 
         try {
-            response.getWriter().print(JSONUtils.toJSONString(data));
+            response.getWriter().print(new ObjectMapper().writeValueAsString(data));
             response.getWriter().close();
         } catch (IOException e) {
             throw new BlogBaseException(e);

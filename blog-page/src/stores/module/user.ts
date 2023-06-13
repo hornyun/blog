@@ -3,7 +3,6 @@ import {getToken, setToken} from '@/api/auth/auth';
 
 export const userStore = defineStore('user', {
     state: () => ({
-        token: getToken(),
         userInfo: null,
         role: [],
     }),
@@ -12,19 +11,15 @@ export const userStore = defineStore('user', {
     },
 
     actions:{
-        clearToken() {
-            setToken("");
-        },
         async login(form:any){
             const res = await $api.userApi.login(form)
+            console.log("login res is ", res);
             if (res?.success) {
-                setToken(res.data?.token);
                 this.setUserInfo(res.data);
                 return true;
             }else{
                 return false;
             }
-
         },
         setUserInfo(data:any) {
             this.$patch(state=>{
@@ -32,12 +27,13 @@ export const userStore = defineStore('user', {
             })
         },
         async getUserInfo(){
-            const res = await $api.userApi.getUserInfo();
+            const res = await $api.userApi.getUser();
+            console.log("res is ", res);
             if (res?.success) {
-                this.setUserInfo(res.d());
-                return true;
+                this.setUserInfo(res?.data);
+                return res?.data;
             }else{
-                return false;
+                return undefined;
             }
         }
     }

@@ -37,7 +37,6 @@ public class ShiroConfig {
         blogRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealms(Arrays.asList(blogRealm, blogTokenRealm));
-
         return defaultWebSecurityManager;
     }
 

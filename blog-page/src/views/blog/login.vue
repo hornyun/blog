@@ -12,8 +12,7 @@
                             <el-input v-model="form.password"/>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="onSubmit">Create</el-button>
-                            <el-button>Cancel</el-button>
+                            <el-button type="primary" @click="onSubmit">登录</el-button>
                         </el-form-item>
                     </el-form>
                 </el-col>
@@ -64,6 +63,7 @@ const form = reactive({
 
 const onSubmit = async () => {
     const success = await userStore().login(form);
+    console.log()
     if (success) {
         await router.push({path:"/blog/home"});
     }else{

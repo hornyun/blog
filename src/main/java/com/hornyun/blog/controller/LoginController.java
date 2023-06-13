@@ -27,7 +27,7 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public BlogResponse<User> login(User user) {
+    public BlogResponse<User> login(@RequestBody User user) {
         Subject subject = SecurityUtils.getSubject();
         subject.login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
         return BlogResponse.success((User) SecurityUtils.getSubject().getPrincipal());

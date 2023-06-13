@@ -14,14 +14,6 @@ const instance = axios.create({
 // request interceptor
 instance.interceptors.request.use(
     config => {
-        // do something before request is sent
-        const token = getToken();
-        if (token) {
-            // 让每个请求携带自定义token 请根据实际情况自行修改
-            config.headers['blog_token'] = token
-        }else{
-            console.log("unset blog_token");
-        }
         return config;
     },
     error => {
@@ -37,11 +29,9 @@ instance.interceptors.response.use(
         return response.data;
     },
     async error => {
-        console.error(error);
+        console.log(error);
         if (error.response) {
             if (error.response.status === 401) {
-                const store = userStore();
-                await store.clearToken();
                 await router.replace({
                     path: '/blog/login',
                 });

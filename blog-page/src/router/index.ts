@@ -54,7 +54,8 @@ router.beforeEach(async (to) => {
                 return '/login';
             }
         }
-    } else if (to.path === '/login') {
+    }
+    else if (to.path === '/login') {
         if (store.userInfo) {
             return '/blog/home';
         }else{
