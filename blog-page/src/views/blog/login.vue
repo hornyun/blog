@@ -63,7 +63,6 @@ const form = reactive({
 
 const onSubmit = async () => {
     const success = await userStore().login(form);
-    console.log()
     if (success) {
         await router.push({path:"/blog/home"});
     }else{

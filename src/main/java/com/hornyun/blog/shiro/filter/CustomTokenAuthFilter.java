@@ -1,4 +1,4 @@
-package com.hornyun.blog.shiro;
+package com.hornyun.blog.shiro.filter;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,6 +6,8 @@ import com.hornyun.blog.dto.BlogResponse;
 import com.hornyun.blog.entity.User;
 import com.hornyun.blog.exception.BlogBaseException;
 import com.hornyun.blog.service.impl.TokenService;
+import com.hornyun.blog.shiro.BlogToken;
+import com.hornyun.blog.util.CorsUtils;
 import com.hornyun.blog.util.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,8 +46,11 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         //todo which can set redis-key by sessionId
+        //with cookie when cross origin
+        CorsUtils.setCorsResponse((HttpServletRequest) request, (HttpServletResponse) response);
         log.info("http request session Id is {}", ((HttpServletRequest) request).getSession().getId());
         if (((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())) {
+            log.info("options methods come in {}", request);
             return true;
         }else{
             HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -55,8 +60,10 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
                 tokenService.refreshToken(token);
                 User user = tokenService.getUserByToken(token);
                 return user != null;
+            }else{
+                log.info("get sessionId is {}",((HttpServletRequest) request).getSession());
+                return super.isAccessAllowed(request, response, mappedValue);
             }
-            return false;
         }
     }
 
@@ -72,7 +79,6 @@ public class CustomTokenAuthFilter extends FormAuthenticationFilter {
                 if (log.isTraceEnabled()) {
                     log.trace("Login page view.");
                 }
-                //allow them to see the login page ;)
                 return true;
             }
         } else {

@@ -1,8 +1,5 @@
 import axios from 'axios';
-import {getToken} from '@/api/auth/auth';
 import router from '@/router';
-import userStore from "@/stores/module/user";
-
 
 // create an axios instance
 const instance = axios.create({

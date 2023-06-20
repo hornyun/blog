@@ -25,6 +25,13 @@ const routes = [
         path: "/blog/home",
         name: 'blog-home',
         component: () => import('@/views/blog/home.vue'),
+        children:[
+            {
+                path:'/user',
+                name:'user-management',
+                component: () => import('@/views/blog/system/user-management.vue'),
+            }
+        ]
     },
     {
         path: "/blog/test",
@@ -51,7 +58,7 @@ router.beforeEach(async (to) => {
                 return true;
             }else{
                 nProgress.done();
-                return '/login';
+                return true;
             }
         }
     }
@@ -59,8 +66,7 @@ router.beforeEach(async (to) => {
         if (store.userInfo) {
             return '/blog/home';
         }else{
-            const user = await store.getUserInfo();
-            return !user;
+            return true;
         }
     } else {
         nProgress.done();

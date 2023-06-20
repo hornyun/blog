@@ -43,5 +43,4 @@ public class BlogRealm extends AuthenticatingRealm {
         }
 
     }
-
 }

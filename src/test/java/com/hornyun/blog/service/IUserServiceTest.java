@@ -21,8 +21,6 @@ class IUserServiceTest {
     @Resource
     private IUserService userService;
 
-    @Resource
-    private HashedCredentialsMatcher credentialsMatcher;
 
     @Test
     void testMatcher() {

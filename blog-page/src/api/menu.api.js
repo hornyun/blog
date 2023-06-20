@@ -24,6 +24,18 @@ const menus = [
         index:5,
         title: '关于本人',
     },
+];
+const sideMenus = [
+    {
+        name:'系统管理',
+        children:[
+            {
+                name:'用户管理',
+            },
+
+        ]
+    }
+    ,
 ]
 
 export default function (){
